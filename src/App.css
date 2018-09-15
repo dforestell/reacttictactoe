@@ -7,6 +7,7 @@
   height: 80px;
   border: 1px solid black;
   display: inline-block;
+  line-height: 80px;
 
 }
 
@@ -15,3 +16,4 @@
   flex-wrap: wrap;
   width: 320px;
 }
+
