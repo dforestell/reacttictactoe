@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import Player from './components/choosePlayer.js'
+import Status from './components/status.js';
 
 
 class App extends Component {
@@ -25,14 +25,18 @@ class App extends Component {
       ["0", "4", "8"],
       ["2", "4", "6"] 
     ]
-    for (let index = 0; index < winLines.length; index ++) {
-      const [a, b, c] = winLines[index];
-      if (this.state.board[a] && this.state.board[a] === this.state.board[b] && this.state.board[a] === this.state.board[c]) {
-        alert ('You Won')
-        this.setState({
-          winner: this.state.player
-        })
-      }
+    this.checkMatch(winLines)
+  }
+
+  checkMatch(winLines){
+      for (let index = 0; index < winLines.length; index ++) {
+        const [a, b, c] = winLines[index];
+        let board = this.state.board
+        if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+          this.setState({
+            winner: this.state.player
+          })
+        }
     }
   }
 
@@ -55,23 +59,35 @@ class App extends Component {
       player: player
     })
   }
-  
-  render() {
 
-    const Box = this.state.board.map(
+  reset() {
+    this.setState({
+      board: Array(9).fill(null),
+      player: null,
+      winner: null
+    })
+  }
+
+  renderBoxes() {
+    return this.state.board.map(
       (box, index) => 
         <div className="box" key={index} onClick={(e) =>this.handleClick(index)}>
           {box}
         </div>)
+  }
+  
+  render() {
 
-    let status = this.state.player ? <h2> Player {this.state.player}'s turn!</h2> :<Player player={(e) => this.setPlayer(e)} />
 
     return (
       <div className="container">
         <h1> Tic Tac Toe </h1>
-        {status}
+        <Status player={this.state.player} setPlayer={(e) => {this.setPlayer(e)}} winner={this.state.winner}/>
+        <div>
+          <button onClick={() => this.reset()}>Reset</button>
+        </div>
         <div className="board">
-          { Box }  
+          { this.renderBoxes()}  
         </div>
       </div>
     );
