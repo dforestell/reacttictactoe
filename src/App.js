@@ -37,15 +37,17 @@ class App extends Component {
   }
 
   handleClick(index){
-    let newBoard = this.state.board 
-    if(this.state.board[index] === null  && !this.state.winner) {
-      newBoard[index] = this.state.player
-      this.setState({
-        board: newBoard,
-        player: this.state.player === "X" ? "O" : "X"
-      })
-      this.checkWinner( )
-    }
+    if (this.state.player && !this.state.winner) {
+      let newBoard = this.state.board 
+      if(this.state.board[index] === null ) {
+        newBoard[index] = this.state.player
+        this.setState({
+          board: newBoard,
+          player: this.state.player === "X" ? "O" : "X"
+        })
+        this.checkWinner( )
+      }
+    }  
   }
 
   setPlayer(player) {
