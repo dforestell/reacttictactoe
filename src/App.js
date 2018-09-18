@@ -64,10 +64,12 @@ class App extends Component {
           {box}
         </div>)
 
+    let status = this.state.player ? <h2> Player {this.state.player}'s turn!</h2> :<Player player={(e) => this.setPlayer(e)} />
+
     return (
       <div className="container">
         <h1> Tic Tac Toe </h1>
-        <Player player={(e) => this.setPlayer(e)} />
+        {status}
         <div className="board">
           { Box }  
         </div>
