@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import Player from './components/choosePlayer.js'
 
 
 class App extends Component {
@@ -7,7 +8,8 @@ class App extends Component {
     super(props)
     this.state = {
       board: Array(9).fill(null),
-      player: "X"
+      player: "X",
+      winner: null
     }
   }
 
@@ -27,21 +29,25 @@ class App extends Component {
       const [a, b, c] = winLines[index];
       if (this.state.board[a] && this.state.board[a] === this.state.board[b] && this.state.board[a] === this.state.board[c]) {
         alert ('You Won')
+        this.setState({
+          winner: this.state.player
+        })
       }
     }
   }
 
   handleClick(index){
     let newBoard = this.state.board 
-    if(this.state.board[index] === null) {
+    if(this.state.board[index] === null  && !this.state.winner) {
       newBoard[index] = this.state.player
       this.setState({
         board: newBoard,
         player: this.state.player === "X" ? "O" : "X"
       })
+      this.checkWinner( )
     }
 
-    this.checkWinner( )
+
   }
   
   render() {
@@ -55,6 +61,7 @@ class App extends Component {
     return (
       <div className="container">
         <h1> Tic Tac Toe </h1>
+        <Player />
         <div className="board">
           { Box }  
         </div>
