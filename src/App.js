@@ -8,7 +8,7 @@ class App extends Component {
     super(props)
     this.state = {
       board: Array(9).fill(null),
-      player: "X",
+      player: null,
       winner: null
     }
   }
@@ -46,8 +46,12 @@ class App extends Component {
       })
       this.checkWinner( )
     }
+  }
 
-
+  setPlayer(player) {
+    this.setState({
+      player: player
+    })
   }
   
   render() {
@@ -61,7 +65,7 @@ class App extends Component {
     return (
       <div className="container">
         <h1> Tic Tac Toe </h1>
-        <Player />
+        <Player player={(e) => this.setPlayer(e)} />
         <div className="board">
           { Box }  
         </div>
